@@ -7,44 +7,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Pacifico&display=swap" rel="stylesheet" />
   <style>
     body {
-      background-color: #0f111a;
+      background: #0f111a;
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      font-family: 'Orbitron', sans-serif;
       color: white;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
     }
 
     h1, h2 {
-      position: fixed;
-      font-size: 10vw;
-      font-family: 'Orbitron', sans-serif;
-      color: white;
-      z-index: 1;
-      text-shadow: 5px 5px 0 #000, 10px 10px 20px rgba(0,0,0,0.5);
+      font-size: 8vw;
       opacity: 0.4;
+      text-shadow: 5px 5px 0 #000, 10px 10px 20px rgba(0,0,0,0.5);
       margin: 0;
       user-select: none;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    h1 {
-      top: 10%;
-    }
-    h2 {
-      bottom: 10%;
     }
 
     .heart {
-      position: fixed;
-      top: 35%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-45deg);
-      width: 160px;
-      height: 160px;
+      width: 140px;
+      height: 140px;
       background: red;
       border-radius: 50% 50% 0 0;
-      z-index: 2;
+      transform: rotate(-45deg);
+      position: relative;
       box-shadow: 0 0 40px #ff004c;
     }
 
@@ -52,44 +48,35 @@
     .heart::after {
       content: "";
       position: absolute;
-      width: 160px;
-      height: 160px;
+      width: 140px;
+      height: 140px;
       background: red;
       border-radius: 50%;
       box-shadow: 0 0 40px #ff004c;
     }
+
     .heart::before {
-      top: -80px;
+      top: -70px;
       left: 0;
     }
+
     .heart::after {
-      left: 80px;
+      left: 70px;
       top: 0;
     }
 
     .counter {
-      position: fixed;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       font-size: 2em;
       text-shadow: 0 0 20px #fff;
-      z-index: 3;
       user-select: none;
     }
 
     p {
-      position: fixed;
-      bottom: 20%;
-      left: 50%;
-      transform: translateX(-50%);
       font-family: 'Pacifico', cursive;
-      font-size: 2.5em;
+      font-size: 2em;
       text-shadow: 0 0 20px #fff;
       margin: 0;
-      color: white;
       user-select: none;
-      z-index: 2;
     }
 
     #pantalla-carga {
@@ -106,8 +93,8 @@
       user-select: none;
       transition: opacity 1s ease;
       font-family: Arial, Helvetica, sans-serif;
-      color: white;
     }
+
     #pantalla-carga.ocultar {
       opacity: 0;
       pointer-events: none;
@@ -118,6 +105,7 @@
       width: 90%;
       max-width: 90vw;
     }
+
     .svg-letras {
       width: 100%;
       height: auto;
@@ -135,17 +123,13 @@
       color: #ff004c;
       text-shadow: 0 0 15px #ff004c;
       user-select: none;
-      pointer-events: none;
     }
   </style>
 </head>
 <body>
-
-  <!-- Pantalla de carga -->
-  <div id="pantalla-carga" aria-label="Pantalla de carga">
-    <div class="contenedor-letras-svg" aria-hidden="true">
-      <svg viewBox="0 0 600 200" class="svg-letras" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="tituloSVG">
-        <title id="tituloSVG">D más F</title>
+  <div id="pantalla-carga">
+    <div class="contenedor-letras-svg">
+      <svg viewBox="0 0 600 200" class="svg-letras" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="clip-letras">
             <text x="135" y="150" font-size="150" font-family="Arial Black" font-weight="bold">D+F</text>
@@ -161,12 +145,13 @@
     </div>
   </div>
 
-  <!-- Contenido mensaje3 -->
-  <h1>NO TE</h1>
-  <div class="heart"></div>
-  <div class="counter" id="counter">0</div>
-  <h2>QUEDES</h2>
-  <p>Es Infinito</p>
+  <div class="container">
+    <h1>NO TE</h1>
+    <div class="heart"></div>
+    <div class="counter" id="counter">0</div>
+    <p>Es Infinito</p>
+    <h2>QUEDES</h2>
+  </div>
 
   <script>
     let progreso = 0;
