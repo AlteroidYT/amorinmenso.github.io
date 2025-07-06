@@ -6,79 +6,127 @@
   <title>Mensaje Infinito</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Pacifico&display=swap" rel="stylesheet" />
   <style>
+    /* ----------------- Estilos de mensaje3 original ----------------- */
     body {
-      background: #0f111a;
+      background-color: #0f111a;
       margin: 0;
       height: 100vh;
       overflow: hidden;
-      color: white;
       font-family: 'Orbitron', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
+      position: relative;
+      color: white;
     }
 
     h1, h2 {
-      font-size: 8vw;
-      opacity: 0.4;
+      position: absolute;
+      font-size: 9.5vw;
+      font-family: 'Orbitron', sans-serif;
+      color: white;
+      z-index: 1;
       text-shadow: 5px 5px 0 #000, 10px 10px 20px rgba(0,0,0,0.5);
+      opacity: 0.4;
       margin: 0;
       user-select: none;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    h1 {
+      top: 30%;
+    }
+    h2 {
+      bottom: 30%;
     }
 
     .heart {
-      width: 140px;
-      height: 140px;
-      background: red;
-      border-radius: 50% 50% 0 0;
-      transform: rotate(-45deg);
-      position: relative;
-      box-shadow: 0 0 40px #ff004c;
+    position: relative;
+    top: 600px; /* o la cantidad que quieras para bajarlo */
+    margin: 0 auto; /* centrado horizontal */
+    width: 200px;
+    height: 200px;
+    background: red;
+    border-radius: 50% 50% 0 0;
+    transform: rotate(-45deg);
+    z-index: 2;
+    box-shadow: 0 0 40px #ff004c;
     }
 
     .heart::before,
     .heart::after {
       content: "";
       position: absolute;
-      width: 140px;
-      height: 140px;
+      width: 200px;
+      height: 200px;
       background: red;
       border-radius: 50%;
       box-shadow: 0 0 40px #ff004c;
     }
-
     .heart::before {
-      top: -70px;
+      top: -100px;
       left: 0;
     }
-
     .heart::after {
-      left: 70px;
+      left: 100px;
       top: 0;
     }
 
     .counter {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
       font-size: 2em;
       text-shadow: 0 0 20px #fff;
+      font-family: 'Orbitron', sans-serif;
+      z-index: 3;
       user-select: none;
     }
 
     p {
+      position: absolute;
+      bottom: 15%;
+      left: 50%;
+      transform: translateX(-50%);
       font-family: 'Pacifico', cursive;
-      font-size: 2em;
+      font-size: 5em;
       text-shadow: 0 0 20px #fff;
       margin: 0;
+      color: white;
+      user-select: none;
+      z-index: 2;
+    }
+
+    .message-boxes {
+      display: flex;
+      gap: 1em;
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .message-box {
+      border: 2px solid white;
+      padding: 1em 2em;
+      border-radius: 8px;
+      min-width: 140px;
+      text-align: center;
+      background: transparent;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
       user-select: none;
     }
 
+    .message-box:hover {
+      background-color: #ff004c;
+      color: #fff;
+      box-shadow: 0 0 15px #ff004c;
+    }
+
+    /* ----------------- Estilos pantalla de carga sobria ----------------- */
     #pantalla-carga {
       position: fixed;
       top: 0; left: 0;
@@ -93,8 +141,8 @@
       user-select: none;
       transition: opacity 1s ease;
       font-family: Arial, Helvetica, sans-serif;
+      color: white;
     }
-
     #pantalla-carga.ocultar {
       opacity: 0;
       pointer-events: none;
@@ -102,10 +150,9 @@
 
     .contenedor-letras-svg {
       position: relative;
-      width: 90%;
+      width: 600px;
       max-width: 90vw;
     }
-
     .svg-letras {
       width: 100%;
       height: auto;
@@ -115,45 +162,56 @@
 
     #porcentaje {
       position: absolute;
-      top: 70%;
+      top: 80%; /* más abajo aún */
       left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
+      transform: translateX(-50%); /* Solo centrado horizontal */
+      font-size: 2.5rem;
       font-family: 'Orbitron', sans-serif;
       color: #ff004c;
       text-shadow: 0 0 15px #ff004c;
       user-select: none;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <div id="pantalla-carga">
-    <div class="contenedor-letras-svg">
-      <svg viewBox="0 0 600 200" class="svg-letras" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Pantalla de carga -->
+  <div id="pantalla-carga" aria-label="Pantalla de carga">
+    <div class="contenedor-letras-svg" aria-hidden="true">
+      <svg viewBox="0 0 600 200" class="svg-letras" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="tituloSVG">
+        <title id="tituloSVG">D más F</title>
         <defs>
           <clipPath id="clip-letras">
             <text x="135" y="150" font-size="150" font-family="Arial Black" font-weight="bold">D+F</text>
           </clipPath>
         </defs>
+
+        <!-- Fondo gris oscuro -->
         <rect width="100%" height="100%" fill="#1a1a1a" />
+
+        <!-- Onda recortada en letras -->
         <g clip-path="url(#clip-letras)">
           <path id="onda" fill="#a10014"></path>
         </g>
+
+        <!-- Contorno de letras -->
         <text x="135" y="150" font-size="150" font-family="Arial Black" fill="none" stroke="#fff" stroke-width="3">D+F</text>
       </svg>
+
       <div id="porcentaje">0%</div>
     </div>
   </div>
 
-  <div class="container">
-    <h1>NO TE</h1>
-    <div class="heart"></div>
-    <div class="counter" id="counter">0</div>
-    <p>Es Infinito</p>
-    <h2>QUEDES</h2>
-  </div>
-
+  <!-- Contenido mensaje3 -->
+  <h1>NO TE</h1>
+  <div class="heart"></div>
+  <div class="counter" id="counter">0</div>
+  <h2>QUEDES</h2>
+  <p>Es Infinito</p>
+  
   <script>
+    // Animación pantalla de carga
     let progreso = 0;
     const porcentaje = document.getElementById("porcentaje");
     const pantallaCarga = document.getElementById("pantalla-carga");
@@ -162,11 +220,13 @@
     function generarOnda(porc) {
       const alto = 200;
       const nivel = alto - (porc * alto / 100);
+
       let puntos = "";
       for (let x = 0; x <= 600; x += 10) {
         const y = nivel + 8 * Math.sin((x + progreso * 6) * 0.04);
         puntos += `${x},${y} `;
       }
+
       return `M0,${alto} L${puntos} L600,${alto} Z`;
     }
 
@@ -174,6 +234,7 @@
       progreso++;
       porcentaje.textContent = `${progreso}%`;
       onda.setAttribute("d", generarOnda(progreso));
+
       if (progreso >= 100) {
         clearInterval(intervalo);
         pantallaCarga.classList.add("ocultar");
@@ -183,14 +244,22 @@
       }
     }, 40);
 
+    // Contador infinito mensaje3
     let counter = 0;
     const counterEl = document.getElementById('counter');
 
     function formatNumber(num) {
-      if (num >= 1_000_000_000_000_000_000) return (num / 1_000_000_000_000_000_000).toFixed(2) + 'Quin';
-      else if (num >= 1_000_000_000_000_000) return (num / 1_000_000_000_000_000).toFixed(2) + 'Cua';
-      else if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(2) + 'B';
-      else return num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+      if (num >= 1_000_000_000_000_000_000) { // quintillón
+        return (num / 1_000_000_000_000_000_000).toFixed(2) + 'Quin';
+      } else if (num >= 1_000_000_000_000_000) { // cuatrillón
+        return (num / 1_000_000_000_000_000).toFixed(2) + 'Cua';
+      } else if (num >= 1_000_000_000) {
+        return (num / 1_000_000_000).toFixed(2) + 'B';
+      } else if (num >= 1_000_000) {
+        return num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+      } else {
+        return num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+      }
     }
 
     function updateCounter() {
