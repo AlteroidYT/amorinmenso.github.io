@@ -98,12 +98,14 @@
 
     .message-boxes {
       display: flex;
+      flex-direction: column;
       gap: 1em;
-      position: absolute;
-      bottom: 5%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
+      position: relative; /* <-- ya no absolute */
+      margin: 900px auto 50px auto; /* para bajarlo */
+      max-width: 80%;
+      z-index: 1;
+      justify-content: center;
+      align-items: center;
     }
 
     .message-box {
@@ -162,13 +164,13 @@
 
     #porcentaje {
       position: absolute;
-      top: 60%;
+      top: 80%; /* más abajo aún */
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translateX(-50%); /* Solo centrado horizontal */
       font-size: 2.5rem;
-      font-family: Arial, Helvetica, sans-serif;
-      color: white;
-      /* Sin sombras ni neones */
+      font-family: 'Orbitron', sans-serif;
+      color: #ff004c;
+      text-shadow: 0 0 15px #ff004c;
       user-select: none;
       pointer-events: none;
     }
@@ -211,8 +213,20 @@
   <p>Es Infinito</p>
 
   <div class="message-boxes">
-    <button class="message-box" onclick="window.open('mensaje4.html', '_blank')">
-      Abrir Mensaje 4
+    <button class="message-box">
+      Teniendote <strong>lejos de mi me he dado cuenta de muchas cosas</strong> y una
+      de ellas es que no puedo vivir sin ti, y sinceramente mi amor no puedo dejar de
+      pensar en lo hermoso que seria pasar tiempo contigo, solo puedo pensar en lo
+      feliz que seria estando contigo, ya que cuando estoy contigo soy feliz, 
+      <a>el tiempo que paso sin ti es solo tiempo pasado sin ti</a> yo te amo tanto...
+      lo suficiente para pasarme 2 dias completos haciendo esto... lo suficiente para que
+      <strong>seas siempre mi primer pensamiento del dia</strong>, mi amor quiero que
+      sepas que lo que siento por ti jamas jamas jamas jamas en la vida lo volvere a sentir
+      por otra persona, <strong><a>por que si no es contigo... no es con nadie</a></strong>.
+      Contigo eh decidido mi futuro y contigo quiero vivir y crear cada momento de mi vida,
+      los mas tristes, los mas felices... todos. Si mi amor por ti fuera un numero...
+      <strong><a>definitivamente seria infinito</a></strong>. Te amo mi amor que nunca 
+      se te olvide 💗🥺.
     </button>
   </div>
 
